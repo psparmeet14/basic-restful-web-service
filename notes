@@ -1,0 +1,107 @@
+# RESTful Web Services
+
+Social Media Application Resource Mappings
+
+User -> Posts
+
+- Retrieve all Users	- GET  /users
+- Create a User			- POST  /users
+- Retrieve one User 	- GET  /users/{id} -> /users/1
+- Delete a User         - DELETE  /users/{id} -> /users/1
+
+- Retrieve all posts for a User		- GET  /users/{id}/posts
+- Create a posts for a User 		- POST  /users/{id}/posts 
+- Retrieve details of a post		- GET  /users/{id}/posts/{post_id}
+
+=====================
+- Spring Boot Auto Configuration
+- DispatcherServlet
+
+===================
+Advanced topics related to RESTful web services:
+- Internationalization
+- Content negotiation
+- versioning
+- filter JSON content
+- document web service
+- monitor web service
+======================
+
+# Internationalization
+- Configuration:
+---- LocaleResolver 
+-------- Default Locale - Locale.US
+---- ResourceBundleMessageSource   OR   spring.messages.basename=messages in application.properties
+
+- Usage:
+---- Autowire MessageSource
+---- @RequestHeader(value = "Accept-language", required = false) Locale locale   OR   LocaleContextHolder.getLocale()
+---- messageSource.getMessage("helloWorld.message", null, locale)
+
+=========================
+
+# Versioning
+- Using URI versioning (eg. Twitter)
+
+- Using Request Parameter versioning (eg. Amazon)
+
+- Using Header Parameter versioning (eg. Microsoft)
+
+- Using Content Negotiation or Accept Header versioning or Produces or MIME type versioning or Media type versioning (eg. Github)
+
+Factors:
+- URI pollution
+- Misuse of HTTP Headers
+- Caching
+- Can we execute the request on the browser?
+- API DOcumentation
+
+- No Perfect Solution
+===============================
+# RESTful Web Services Best Practices:
+
+- Richardson Maturity Model
+-- LEVEL 0 = EXPOSE SOAP WEB SERVICES IN REST STYLE
+eg. http://server/getPosts
+eg. http://server/deletePosts
+eg. http://server/doThis
+
+-- LEVEL 1 = EXPOSE RESOURCES WITH PROPER URI
+eg. http://server/accounts
+eg. http://server/accounts/10
+NOTE: IMPROPER USE OF HTTP METHODS
+
+-- LEVEL 2 = LEVEL 1 + HTTP METHODS
+
+-- LEVEL 3 = LEVEL 2 + HATEOAS
+DATA + NEXT POSSIBLE ACTIONS 
+=================================
+# RESTful Web Services Best Practices:
+
+- CONSUMER FIRST
+
+- MAKE BEST USE OF HTTP
+
+- REQUEST METHODS: GET, POST, PUT, DELETE
+
+- RESPONSE STATUS: 
+-- 200 - SUCCESS
+-- 404 - RESOURCE NOT FOUND
+-- 400 - BAD REQUEST
+-- 201 - CREATED
+-- 401 - UNAUTHORIZED
+-- 500 - SERVER ERROR
+
+- NO SECURE INFO IN URI
+
+- USE PLURALS
+eg. Prefer /users to /user
+eg. Prefer /users/1 to /user/1
+
+- USE NOUNS FOR RESOURCES
+
+- FOR EXCEPTIONS
+-- DEFINE A CONSISTENT APPROACH
+eg. /search
+eg. IN GITHUB - PUT /gists/{id}/star
+eg. DELETE /gists{id}/star
